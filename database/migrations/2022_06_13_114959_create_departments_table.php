@@ -17,8 +17,7 @@ class CreateDepartmentsTable extends Migration
             $table->id();
             $table->integer('owner')->nullable()->comment('Department owner ID');
             $table->string('name')->comment('Name of department');
-            $table->string('abbreviation')->comment('Short name of department');
-
+            $table->string('abbreviation')->nullable()->comment('Short name of department');
         });
     }
 

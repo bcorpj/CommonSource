@@ -17,14 +17,14 @@ class CreateUserPropertiesTable extends Migration
             $table->id();
             $table->foreignId('position_id')->nullable();
             $table->foreignId('department_id')->nullable();
-            $table->foreignId('access_id')->nullable();
             $table->foreignId('user_id');
             $table->text('profile_image')->nullable();
+            $table->boolean('is_active')->default(true);
 
             $table->foreign('position_id')->references('id')->on('positions');
             $table->foreign('department_id')->references('id')->on('departments');
             $table->foreign('access_id')->references('id')->on('accesses');
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

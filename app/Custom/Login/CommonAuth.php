@@ -8,6 +8,7 @@ use App\Custom\Login\Anil\TokenProvider;
 use App\Custom\Response\ShortResponse;
 use App\Http\Requests\AuthRequest;
 use App\Models\User;
+use Faker\Provider\kk_KZ\Address;
 use Illuminate\Http\JsonResponse;
 
 class CommonAuth implements ICommonAuth

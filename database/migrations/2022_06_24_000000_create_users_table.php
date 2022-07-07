@@ -21,7 +21,6 @@ class CreateUsersTable extends Migration
             $table->string('phone_number')->nullable();
             $table->string('password');
             $table->boolean('LDAP')->default(true);
-            $table->json('services')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });
