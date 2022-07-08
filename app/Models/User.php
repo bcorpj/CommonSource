@@ -4,6 +4,9 @@ namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -77,4 +80,41 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+
+
+    public function property(): HasOne
+    {
+        return $this->hasOne(UserProperty::class)->with('department', 'position');
+    }
+
+    public function admin(): HasOne
+    {
+        return $this->hasOne(Admin::class);
+    }
+
+    public function logs(): HasMany
+    {
+        return $this->hasMany(Log::class);
+    }
+
+    public function services(): BelongsToMany
+    {
+        return $this->belongsToMany(Service::class, 'user_services')->withPivot('blocked');
+    }
+
+    public function department(): BelongsToMany
+    {
+        return $this->belongsToMany(Department::class, 'user_properties');
+    }
+
+    public function position(): BelongsToMany
+    {
+        return $this->belongsToMany(Position::class, 'user_properties');
+    }
+
+    public function access(): HasOne
+    {
+        return $this->hasOne(Access::class);
+    }
 }

@@ -11,7 +11,7 @@ class UserPropertiesCreator extends Filler\Creator
     protected function config()
     {
         parent::set_model(UserProperty::class);
-        $this->create_count = 22;
+        $this->create_count = 10;
     }
 
     /**

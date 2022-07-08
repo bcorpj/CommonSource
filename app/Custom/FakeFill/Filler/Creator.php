@@ -12,11 +12,13 @@ abstract class Creator
     protected Generator $faker;
     protected string $class;
     protected int $created = 0;
+    protected bool $is_dynamic = true;
 
     public function __construct ()
     {
         $this->faker = Factory::create($this->lang);
         $this->config();
+        $this->create_count = !$this->is_dynamic ? 1 : $this->create_count;
         $this->start();
         $this->log();
     }

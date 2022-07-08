@@ -1,12 +1,11 @@
 <?php
 
-use App\Custom\FakeFill\DepartmentCreator;
-use App\Custom\FakeFill\PositionCreator;
-use App\Custom\FakeFill\UserCreator;
-use App\Custom\FakeFill\UserPropertiesCreator;
 use App\Custom\Login\CommonAuth;
 use App\Http\Controllers\UserController;
 use App\Http\Requests\AuthRequest;
+use App\Http\Resources\CommonUI\UserResource;
+use App\Http\Resources\UserCollection;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -23,8 +22,14 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('/login', fn(AuthRequest $request) => CommonAuth::init($request) );
 
+Route::get('/res', function () {
+    return response()->json(
+        new UserResource(User::find(7))
+    );
+});
+
 Route::controller(UserController::class)->group(function () {
     Route::get('/temp', function (Request $request) {
-        new UserPropertiesCreator();
-    })->middleware(['auth:sanctum', 'ability:role-admins']);
+
+    })->middleware(['auth:sanctum', 'ability:role-admin']);
 });

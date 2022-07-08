@@ -18,9 +18,9 @@ class CreateAccessesTable extends Migration
             $table->string('name');
             $table->json('keys');
             $table->json('department_access');
-            $table->foreignId('user_property_id');
+            $table->foreignId('user_id');
 
-            $table->foreign('user_property_id')->references('id')->on('user_properties')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

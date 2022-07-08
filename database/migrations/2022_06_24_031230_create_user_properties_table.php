@@ -23,7 +23,6 @@ class CreateUserPropertiesTable extends Migration
 
             $table->foreign('position_id')->references('id')->on('positions');
             $table->foreign('department_id')->references('id')->on('departments');
-            $table->foreign('access_id')->references('id')->on('accesses');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }

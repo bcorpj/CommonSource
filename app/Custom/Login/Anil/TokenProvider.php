@@ -24,7 +24,7 @@ class TokenProvider
 
     public function create()
     {
-        $this->token = $this->user->createToken('example', ['role-admins'])
+        $this->token = $this->user->createToken('example', ['role-admin'])
             ->plainTextToken;
     }
 

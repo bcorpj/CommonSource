@@ -13,7 +13,7 @@ class CreateUserServicesTable extends Migration
      */
     public function up()
     {
-        Schema::create('user__services', function (Blueprint $table) {
+        Schema::create('user_services', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id');
             $table->boolean('blocked')->default(false);
@@ -31,6 +31,6 @@ class CreateUserServicesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('user__services');
+        Schema::dropIfExists('user_services');
     }
 }

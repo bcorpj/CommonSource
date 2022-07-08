@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * App\Models\Admin
@@ -20,10 +21,23 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Admin whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Admin whereUserUuid($value)
  * @mixin \Eloquent
+ * @property int $user_id
+ * @method static \Illuminate\Database\Eloquent\Builder|Admin whereUserId($value)
  */
 class Admin extends Model
 {
     use HasFactory;
 
     public $timestamps = false;
+
+    protected $fillable = [
+        'user_id',
+        'department_access',
+        'access'
+    ];
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
 }
