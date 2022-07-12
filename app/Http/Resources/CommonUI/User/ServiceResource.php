@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Resources\CommonUI;
+namespace App\Http\Resources\CommonUI\User;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class DepartmentResource extends JsonResource
+class ServiceResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,8 +16,9 @@ class DepartmentResource extends JsonResource
     {
         return [
             'name' => $this->name,
-            'abbreviation' => $this->abbreviation,
-            'id' => $this->id,
+            'url' => $this->url,
+            'version' => $this->version,
+            'id' => $this->id
         ];
     }
 }

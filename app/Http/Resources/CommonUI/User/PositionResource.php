@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Resources\CommonUI;
+namespace App\Http\Resources\CommonUI\User;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class ServiceResource extends JsonResource
+class PositionResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -15,10 +15,7 @@ class ServiceResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'name' => $this->name,
-            'url' => $this->url,
-            'version' => $this->version,
-            'id' => $this->id
+            'name' => $this->name
         ];
     }
 }

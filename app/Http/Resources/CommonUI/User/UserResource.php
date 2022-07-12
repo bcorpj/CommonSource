@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Resources\CommonUI;
+namespace App\Http\Resources\CommonUI\User;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -18,6 +18,7 @@ class UserResource extends JsonResource
             'id' => $this->id,
             'fullname' => $this->fullname,
             'login' => $this->login,
+            'ldap' => $this->LDAP,
             'position' =>  $this->property->position->name,
             'services' => ServiceResource::collection($this->services),
             'department' => new DepartmentResource ( $this->property->department ),

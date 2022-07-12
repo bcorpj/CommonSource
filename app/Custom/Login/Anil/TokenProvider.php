@@ -9,12 +9,13 @@ class TokenProvider
 {
     public string $token;
     public User $user;
+    public static string $hash_type = 'sha256';
 
     public function __construct(User $user)
     {
         $this->user = $user;
         $this->clear();
-        $this->create();
+        $this->create($user);
     }
 
     public function clear()
@@ -22,14 +23,25 @@ class TokenProvider
         Token::where('tokenable_id', [$this->user->id])->delete();
     }
 
-    public function create()
+    public function create(User $user)
     {
-        $this->token = $this->user->createToken('example', ['role-admin'])
+        if ($user->is_admin)
+            $permission = 'common-admin';
+        else
+            $permission = 'common-user';
+
+        $this->token = $this->user->createToken(env('APP_NAME'), [$permission])
             ->plainTextToken;
     }
 
     public static function attempt(string $not_hashed, string $hashed): bool
     {
-        return hash('sha256', $not_hashed) == $hashed;
+        return hash(self::$hash_type, $not_hashed) == $hashed;
     }
+
+    public static function hash(string $not_hashed)
+    {
+        return hash(self::$hash_type, $not_hashed);
+    }
+
 }

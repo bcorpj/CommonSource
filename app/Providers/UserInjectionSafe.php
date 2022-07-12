@@ -2,23 +2,26 @@
 
 namespace App\Providers;
 
+use App\Custom\Role\RoleProvider;
 use App\Custom\Role\UserEditSafe;
 use Illuminate\Support\ServiceProvider;
 
-class AppServiceProvider extends ServiceProvider
+class UserInjectionSafe extends ServiceProvider
 {
     /**
-     * Register any application services.
+     * Register services.
      *
      * @return void
      */
     public function register()
     {
-        //
+        $this->app->bind(RoleProvider::class, function () {
+            return new RoleProvider(request());
+        });
     }
 
     /**
-     * Bootstrap any application services.
+     * Bootstrap services.
      *
      * @return void
      */

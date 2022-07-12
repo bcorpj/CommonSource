@@ -3,10 +3,6 @@
 use App\Custom\Login\CommonAuth;
 use App\Http\Controllers\UserController;
 use App\Http\Requests\AuthRequest;
-use App\Http\Resources\CommonUI\UserResource;
-use App\Http\Resources\UserCollection;
-use App\Models\User;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,14 +18,18 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('/login', fn(AuthRequest $request) => CommonAuth::init($request) );
 
-Route::get('/res', function () {
-    return response()->json(
-        new UserResource(User::find(7))
-    );
+Route::controller(UserController::class)->middleware(['auth:sanctum'])->group(function () {
+    Route::get('/my', 'info');
+    Route::get('/my/services', 'services');
+    Route::patch('/my/edit', 'edit');
+    Route::patch('/my/edit/password', 'change_password');
+    Route::delete('/my/services/logout/{id}', 'service_logout')->whereNumber('id');
 });
 
-Route::controller(UserController::class)->group(function () {
-    Route::get('/temp', function (Request $request) {
 
-    })->middleware(['auth:sanctum', 'ability:role-admin']);
-});
+
+//Route::get('/res', function () {
+//    return response()->json(
+//        new UserResource(User::find(7))
+//    );
+//});
