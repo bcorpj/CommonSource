@@ -2,9 +2,11 @@
 
 namespace App\Models;
 
+use App\Http\Resources\CommonUI\User\AdminResource;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Collection;
 
 /**
  * App\Models\Admin
@@ -36,8 +38,22 @@ class Admin extends Model
         'access'
     ];
 
+    protected $casts = [
+        'access' => 'array'
+    ];
+
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    //
+
+    public static function permissions (User $user): array
+    {
+        try {
+            return array_keys( collect($user->admin()->get()[0]->access)->filter()->all() );
+        } catch (\ErrorException $exception) {}
+        return ['read'];
     }
 }

@@ -28,8 +28,5 @@ Route::controller(UserController::class)->middleware(['auth:sanctum'])->group(fu
 
 
 
-//Route::get('/res', function () {
-//    return response()->json(
-//        new UserResource(User::find(7))
-//    );
-//});
+
+

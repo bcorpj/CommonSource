@@ -16,10 +16,13 @@ class CommonAuth implements ICommonAuth
     public static function init(AuthRequest $request): JsonResponse
     {
         if ( !self::getUser($request) )
-            return response()->json(['Invalid login or password']);
+            return self::invalid();
+
+        if ( !User::is_active(self::$user) )
+            return self::invalid();
 
         if ( $request->login != self::$user->login )
-            return response()->json(['Invalid login or password']);
+            return self::invalid();
 
         if ( self::$user->LDAP )
             LDAP::init(self::$user);
@@ -40,5 +43,10 @@ class CommonAuth implements ICommonAuth
         return response()->json(
             Save::in( self::$user )
         );
+    }
+
+    private static function invalid(): JsonResponse
+    {
+        return response()->json(['Invalid login or password']);
     }
 }

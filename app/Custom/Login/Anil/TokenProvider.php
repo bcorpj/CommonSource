@@ -2,6 +2,7 @@
 
 namespace App\Custom\Login\Anil;
 
+use App\Models\Admin;
 use App\Models\User;
 use Laravel\Sanctum\PersonalAccessToken as Token;
 
@@ -25,12 +26,7 @@ class TokenProvider
 
     public function create(User $user)
     {
-        if ($user->is_admin)
-            $permission = 'common-admin';
-        else
-            $permission = 'common-user';
-
-        $this->token = $this->user->createToken(env('APP_NAME'), [$permission])
+        $this->token = $this->user->createToken(env('APP_NAME'), Admin::permissions($user))
             ->plainTextToken;
     }
 

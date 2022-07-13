@@ -2,11 +2,9 @@
 
 namespace App\Providers;
 
-use App\Custom\Role\RoleProvider;
-use App\Custom\Role\UserEditSafe;
 use Illuminate\Support\ServiceProvider;
 
-class UserInjectionSafe extends ServiceProvider
+class RequestProvider extends ServiceProvider
 {
     /**
      * Register services.
@@ -15,7 +13,7 @@ class UserInjectionSafe extends ServiceProvider
      */
     public function register()
     {
-
+        //
     }
 
     /**
