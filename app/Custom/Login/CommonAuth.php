@@ -21,9 +21,6 @@ class CommonAuth implements ICommonAuth
         if ( !User::is_active(self::$user) )
             return self::invalid();
 
-        if ( $request->login != self::$user->login )
-            return self::invalid();
-
         if ( self::$user->LDAP )
             LDAP::init(self::$user);
 
