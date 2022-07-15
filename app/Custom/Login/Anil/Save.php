@@ -2,6 +2,7 @@
 
 namespace App\Custom\Login\Anil;
 
+use App\Http\Resources\CommonUI\Login\LoginResource;
 use App\Models\User;
 
 class Save
@@ -13,7 +14,7 @@ class Save
 
         return [
             'token' => $provider->token,
-            'info' => $provider->user
+            'info' => new LoginResource($user)
         ];
     }
 }

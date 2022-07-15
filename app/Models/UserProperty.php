@@ -32,15 +32,15 @@ class UserProperty extends Model
 {
     use HasFactory;
 
-    public $timestamps = false;
-
     protected $fillable = [
+        'user_id',
         'position_id',
         'department_id',
-        'user_id',
         'profile_image',
         'is_active'
     ];
+
+    public $timestamps = false;
 
     public function user(): BelongsTo
     {

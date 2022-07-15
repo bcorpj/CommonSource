@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Exception;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -124,9 +125,12 @@ class User extends Authenticatable
 
     //
 
-    public static function is_active (User $user)
+    public static function is_active (User $user): bool
     {
-        return $user->property()->get()[0]->is_active;
+        try {
+            return $user->property()->get()[0]->is_active;
+        } catch (Exception $exception) {}
+        return false;
     }
 
 

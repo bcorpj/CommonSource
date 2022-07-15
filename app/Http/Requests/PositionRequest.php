@@ -6,14 +6,14 @@ use App\Custom\Additional\Requires;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Request;
 
-class UserRequest extends FormRequest
+class PositionRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      *
      * @return bool
      */
-    public function authorize(): bool
+    public function authorize()
     {
         return true;
     }
@@ -21,7 +21,6 @@ class UserRequest extends FormRequest
     /**
      * Get the validation rules that apply to the request.
      *
-     * @param Request $request
      * @return array
      */
     public function rules(Request $request): array
@@ -29,11 +28,10 @@ class UserRequest extends FormRequest
         $required = (bool) $request->isMethod('post');
 
         return [
-            'fullname' => [Requires::assign($required), 'string', 'min:3', 'max:255'],
-            'login' => [Requires::assign($required), 'string', 'min:3', 'max: 100', 'unique:users,login'],
-            'email' => [Requires::assign($required), 'string', 'unique:users,email'],
-            'phone_number' => [Requires::assign($required), 'string', 'unique:users,phone_number']
+            'id' => [Requires::assign(!$required), 'integer', !$required ? 'exists:positions,id' : ''],
+            'name' => [Requires::assign($required), 'string'],
+            'type' => ['nullable', 'string'],
+            'description' => ['nullable', 'string']
         ];
     }
-
 }
