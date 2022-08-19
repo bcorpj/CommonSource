@@ -25,6 +25,7 @@ use Illuminate\Support\Collection;
  * @mixin \Eloquent
  * @property int $user_id
  * @method static \Illuminate\Database\Eloquent\Builder|Admin whereUserId($value)
+ * @property-read \App\Models\User $user
  */
 class Admin extends Model
 {
@@ -39,6 +40,7 @@ class Admin extends Model
     ];
 
     protected $casts = [
+        'department_access' => 'array',
         'access' => 'array'
     ];
 

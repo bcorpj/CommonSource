@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Resources\CommonUI\Clear;
+namespace App\Http\Resources\CommonUI\Clean;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class UserResource extends JsonResource
+class DepartmentResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -15,11 +15,10 @@ class UserResource extends JsonResource
     public function toArray($request)
     {
         return [
+            'name' => $this->name,
+            'abbreviation' => $this->abbreviation,
+            'owner' => $this->owner,
             'id' => $this->id,
-            'fullname' => $this->fullname,
-            'login' => $this->login,
-            'ldap' => $this->LDAP,
-            'is_admin' => (bool) $this->admin
         ];
     }
 }

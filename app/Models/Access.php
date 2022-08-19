@@ -25,6 +25,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @method static \Illuminate\Database\Eloquent\Builder|Access whereUserPropertyId($value)
  * @property int $user_id
  * @method static \Illuminate\Database\Eloquent\Builder|Access whereUserId($value)
+ * @property-read \App\Models\User|null $access
  */
 class Access extends Model
 {

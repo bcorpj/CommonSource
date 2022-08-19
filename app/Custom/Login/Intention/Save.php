@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Custom\Login\Anil;
+namespace App\Custom\Login\Intention;
 
 use App\Http\Resources\CommonUI\Login\LoginResource;
 use App\Models\User;

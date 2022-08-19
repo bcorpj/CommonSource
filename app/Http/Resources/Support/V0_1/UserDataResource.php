@@ -1,10 +1,14 @@
 <?php
 
-namespace App\Http\Resources\CommonUI\User;
+namespace App\Http\Resources\Support\V0_1;
 
+use App\Http\Resources\CommonUI\User\AccessResource;
+use App\Http\Resources\CommonUI\User\DepartmentResource;
+use App\Http\Resources\CommonUI\User\PositionResource;
+use App\Http\Resources\CommonUI\User\ServiceResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class UserResource extends JsonResource
+class UserDataResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -15,12 +19,12 @@ class UserResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'id' => $this->id,
             'fullname' => $this->fullname,
             'login' => $this->login,
-            'ldap' => $this->LDAP,
+            'email' => $this->email,
+//            'ldap' => $this->LDAP,
             'position' =>  new PositionResource($this->property->position),
-            'services' => ServiceResource::collection($this->services),
+//            'services' => ServiceResource::collection($this->services),
             'department' => new DepartmentResource ( $this->property->department ),
             'access' => new AccessResource( $this->access ),
             'is_admin' => (bool) $this->admin

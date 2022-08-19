@@ -27,6 +27,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @method static \Illuminate\Database\Eloquent\Builder|UserProperty whereProfileImage($value)
  * @property int $is_active
  * @method static \Illuminate\Database\Eloquent\Builder|UserProperty whereIsActive($value)
+ * @property-read \App\Models\Department|null $department
+ * @property-read \App\Models\Position|null $position
+ * @property-read \App\Models\User $user
  */
 class UserProperty extends Model
 {

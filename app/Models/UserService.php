@@ -21,6 +21,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @method static \Illuminate\Database\Eloquent\Builder|UserService whereServiceId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|UserService whereUserId($value)
  * @mixin \Eloquent
+ * @property-read \App\Models\Service $service
+ * @property-read \App\Models\User $user
  */
 class UserService extends Model
 {
@@ -31,7 +33,8 @@ class UserService extends Model
     protected $fillable = [
         'user_id',
         'blocked',
-        'service_id'
+        'service_id',
+        'external_user_id'
     ];
 
     public function service(): BelongsTo

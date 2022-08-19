@@ -30,6 +30,10 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @method static \Illuminate\Database\Eloquent\Builder|Service whereVersion($value)
  * @property string $key
  * @method static \Illuminate\Database\Eloquent\Builder|Service whereKey($value)
+ * @property int|null $production
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\User[] $users
+ * @property-read int|null $users_count
+ * @method static \Illuminate\Database\Eloquent\Builder|Service whereProduction($value)
  */
 class Service extends Model
 {

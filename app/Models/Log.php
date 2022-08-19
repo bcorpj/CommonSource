@@ -25,6 +25,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @method static \Illuminate\Database\Eloquent\Builder|Log whereType($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Log whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Log whereUserId($value)
+ * @property-read \App\Models\User $user
  */
 class Log extends Model
 {

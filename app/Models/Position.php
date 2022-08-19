@@ -22,6 +22,10 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @method static \Illuminate\Database\Eloquent\Builder|Position whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Position whereType($value)
  * @mixin \Eloquent
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\User[] $users
+ * @property-read int|null $users_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\UserProperty[] $users_properties
+ * @property-read int|null $users_properties_count
  */
 class Position extends Model
 {

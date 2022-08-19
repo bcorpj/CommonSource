@@ -2,12 +2,16 @@
 
 namespace App\Custom\Login;
 
-use App\Custom\Login\Anil\ICommonAuth;
-use App\Custom\Login\Anil\Save;
-use App\Custom\Login\Anil\TokenProvider;
+use App\Custom\Login\Intention\ICommonAuth;
+use App\Custom\Login\Intention\Save;
+use App\Custom\Login\Intention\TokenProvider;
+use App\Custom\Service\Intentions\Services;
+use App\Custom\Service\Serviceable\UserDataService;
+use App\Custom\Service\Temp;
 use App\Http\Requests\AuthRequest;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
+use ReflectionException;
 
 class CommonAuth implements ICommonAuth
 {
@@ -32,17 +36,20 @@ class CommonAuth implements ICommonAuth
         return self::$user = User::where('login', $request->login)->first();
     }
 
+    /**
+     * @throws ReflectionException
+     */
     public static function validate(AuthRequest $request): JsonResponse
     {
         if ( !TokenProvider::attempt($request->password, self::$user->password) )
             return self::invalid();
 
+        Services::notify(UserDataService::class, User::find(5));
+
         return response()->json(
             Save::in( self::$user )
         );
     }
-
-    //
 
     public static function invalid(): JsonResponse
     {
@@ -51,6 +58,6 @@ class CommonAuth implements ICommonAuth
 
     public static function not_active(): JsonResponse
     {
-        return response()->json(['message' => 'Unreachable service']);
+        return response()->json(['message' => 'Unreachable service', 'solution' => 'User is not active']);
     }
 }

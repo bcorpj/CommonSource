@@ -10,7 +10,6 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Support\Collection;
 use Laravel\Sanctum\HasApiTokens;
 
 /**
@@ -45,6 +44,17 @@ use Laravel\Sanctum\HasApiTokens;
  * @method static \Illuminate\Database\Eloquent\Builder|User whereUpdatedAt($value)
  * @mixin \Eloquent
  * @method static \Illuminate\Database\Eloquent\Builder|User whereLDAP($value)
+ * @property-read \App\Models\Access|null $access
+ * @property-read \App\Models\Admin|null $admin
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Department[] $department
+ * @property-read int|null $department_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Log[] $logs
+ * @property-read int|null $logs_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Position[] $position
+ * @property-read int|null $position_count
+ * @property-read \App\Models\UserProperty|null $property
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Service[] $services
+ * @property-read int|null $services_count
  */
 class User extends Authenticatable
 {
@@ -104,7 +114,7 @@ class User extends Authenticatable
 
     public function services(): BelongsToMany
     {
-        return $this->belongsToMany(Service::class, 'user_services')->withPivot('blocked');
+        return $this->belongsToMany(Service::class, 'user_services')->withPivot(['blocked', 'external_user_id'])->as('service_for');
     }
 
     public function department(): BelongsToMany

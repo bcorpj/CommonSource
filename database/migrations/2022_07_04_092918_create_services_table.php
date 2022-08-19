@@ -17,9 +17,10 @@ class CreateServicesTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('url');
-            $table->json('data_model')->nullable();
+            $table->string('data_model')->nullable();
             $table->double('version')->default(0.1);
             $table->string('key')->default('undefined');
+            $table->boolean('production')->nullable()->default(false);
             $table->timestamps();
         });
     }
