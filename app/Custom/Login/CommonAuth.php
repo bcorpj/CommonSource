@@ -6,7 +6,9 @@ use App\Custom\Login\Intention\ICommonAuth;
 use App\Custom\Login\Intention\Save;
 use App\Custom\Login\Intention\TokenProvider;
 use App\Custom\Service\Intentions\Services;
+use App\Custom\Service\Resources\DataResource;
 use App\Custom\Service\Resources\DepartmentDataResource;
+use App\Custom\Service\Resources\UserDataResource;
 use App\Custom\Service\Serviceable\DataService;
 use App\Custom\Service\Serviceable\DepartmentDataService;
 use App\Custom\Service\Serviceable\UserDataService;
@@ -46,9 +48,8 @@ class CommonAuth implements ICommonAuth
         if ( !TokenProvider::attempt($request->password, self::$user->password) )
             return self::invalid();
 
-//        Services::notify(UserDataService::class, User::find(5));
-//        Services::notify(DepartmentDataService::class, Department::find(1));
-        Services::notify(DataService::class, Department::find(1));
+        Services::notify(UserDataResource::class, User::find(5));
+//        Services::notify(DepartmentDataResource::class, Department::find(1));
 
         return response()->json(
             Save::in( self::$user )

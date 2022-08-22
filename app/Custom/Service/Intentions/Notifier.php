@@ -3,24 +3,19 @@
 namespace App\Custom\Service\Intentions;
 
 use App\Custom\Service\Type\SendType;
-use App\Http\Resources\Contract\V0_1\DataResource;
 use Illuminate\Support\Collection;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use ReflectionClass;
-use ReflectionException;
-use Str;
 
 abstract class Notifier
 {
     private Collection $services;
-    private Serviceable $serviceable;
+    private string $serviceable;
     private bool $dynamic;
     private $model;
 
-    public function __construct (string $serviceable, $model, bool $dynamic)
+    public function __construct (string $resource, $model, bool $dynamic)
     {
-        $this->serviceable = new $serviceable;
+        $this->serviceable = $resource;
         $this->model = $model;
         $this->dynamic = $dynamic;
         $this->services = $this->list($model);

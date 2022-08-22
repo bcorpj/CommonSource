@@ -13,9 +13,9 @@ class Version
         return Str::replace('.', '_', (string) $version);
     }
 
-    public static function getResource(Service $service, Serviceable $serviceable): string
+    public static function getResource(Service $service, string $serviceable): string
     {
-        $resource = class_basename($serviceable->resource());
+        $resource = class_basename($serviceable);
         $version = static::toDirectory($service->version);
         return "App\\Http\\Resources\\$service->name\\V$version\\$resource";
     }

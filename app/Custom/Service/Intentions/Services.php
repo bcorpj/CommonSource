@@ -13,19 +13,20 @@ class Services
 {
     /**
      * Function for finding Notifier handler by input Models.
-     * @param string $serviceable
+     * @param string $resource
      * @param $model
+     * @param bool $dynamic
      * @return void
      */
-    public static function notify(string $serviceable, $model, bool $dynamic = true): void
+    public static function notify(string $resource, $model, bool $dynamic = true): void
     {
-        $notifier = static::getNotifier($serviceable);
-        new $notifier($serviceable, $model, $dynamic);
+        $notifier = static::getNotifier($resource);
+        new $notifier($resource, $model, $dynamic);
     }
 
     public static function getNotifier(string $serviceable): string
     {
-        $data_service = (string) Str::of($serviceable)->before('DataService')->afterLast('\\');
+        $data_service = (string) Str::of($serviceable)->before('DataResource')->afterLast('\\');
         return "App\\Custom\\Service\\Notify\\{$data_service}ServiceNotifier";
     }
 }

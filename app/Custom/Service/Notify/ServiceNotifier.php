@@ -17,6 +17,6 @@ class ServiceNotifier extends Notifier
      */
     protected function list($model): Collection
     {
-        return $model;
+        return Service::all();
     }
 }
