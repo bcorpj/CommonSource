@@ -9,8 +9,7 @@ interface Serviceable
 {
     /**
      * Should return JsonResource by given model
-     * @param Model $model
-     * @return JsonResource
+     * @return string
      */
-    public function resource(Model $model): JsonResource;
+    public function resource(): string;
 }

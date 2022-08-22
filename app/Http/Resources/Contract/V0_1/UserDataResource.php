@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Resources\Support\V0_1;
+namespace App\Http\Resources\Contract\V0_1;
 
 use App\Http\Resources\CommonUI\User\AccessResource;
 use App\Http\Resources\CommonUI\User\DepartmentResource;
@@ -23,7 +23,7 @@ class UserDataResource extends JsonResource
             'email' => $this->email,
 //            'ldap' => $this->LDAP,
             'position' =>  new PositionResource($this->property->position),
-//            'services' => ServiceResource::collection($this->services),
+            'services' => DataResource::collection($this->services),
             'department' => new DepartmentResource ( $this->property->department ),
             'access' => new AccessResource( $this->access ),
             'is_admin' => (bool) $this->admin

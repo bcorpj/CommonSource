@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Custom\Login\Intention\TokenProvider;
 use App\Http\Requests\PasswordRequest;
 use App\Http\Requests\UserRequest;
-use App\Http\Resources\CommonUI\User\ServiceResource;
+use App\Http\Resources\CommonUI\User\DataResource;
 use App\Http\Resources\CommonUI\User\UserResource;
 use App\Models\Service;
 use Illuminate\Http\JsonResponse;
@@ -44,7 +44,7 @@ class UserController extends Controller
 
     public function services (Request $request): JsonResponse
     {
-        return response()->json(ServiceResource::collection( $request->user()->services ));
+        return response()->json(DataResource::collection( $request->user()->services ));
     }
 
     public function service_logout (Request $request, Service $service): JsonResponse

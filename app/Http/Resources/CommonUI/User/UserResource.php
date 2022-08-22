@@ -20,7 +20,7 @@ class UserResource extends JsonResource
             'login' => $this->login,
             'ldap' => $this->LDAP,
             'position' =>  new PositionResource($this->property->position),
-            'services' => ServiceResource::collection($this->services),
+            'services' => DataResource::collection($this->services),
             'department' => new DepartmentResource ( $this->property->department ),
             'access' => new AccessResource( $this->access ),
             'is_admin' => (bool) $this->admin

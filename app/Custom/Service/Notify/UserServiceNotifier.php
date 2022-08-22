@@ -7,15 +7,14 @@ use App\Models\User;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 
-class UserServicesNotifier extends Notifier
+class UserServiceNotifier extends Notifier
 {
     /**
      * @param User $model
      * @return Collection
      */
-    protected function list(Model $model): Collection
+    protected function list($model): Collection
     {
         return $model->services()->get();
-//        return $model->services()->get()->toArray();
     }
 }

@@ -2,28 +2,30 @@
 
 namespace App\Custom\Service\Intentions;
 
-use App\Custom\Service\Notify\ServicesNotifier;
-use App\Custom\Service\Notify\UserServicesNotifier;
+use App\Custom\Service\Notify\ServiceNotifier;
+use App\Custom\Service\Notify\UserServiceNotifier;
+use App\Http\Resources\CommonUI\User\ServiceResource;
 use App\Models\Service;
 use App\Models\User;
-use Illuminate\Database\Eloquent\Model;
-use ReflectionException;
+use Str;
 
 class Services
 {
     /**
-     * Method for finding Notifier handler by input Models.
+     * Function for finding Notifier handler by input Models.
      * @param string $serviceable
-     * @param Model $model
+     * @param $model
      * @return void
-     * @throws ReflectionException
      */
-    public static function notify(string $serviceable, Model $model): void
+    public static function notify(string $serviceable, $model, bool $dynamic = true): void
     {
-        if ($model instanceof User){
-            new UserServicesNotifier($serviceable, $model);
-        } elseif ($model instanceof Service) {
-            new ServicesNotifier($serviceable, $model);
-        }
+        $notifier = static::getNotifier($serviceable);
+        new $notifier($serviceable, $model, $dynamic);
+    }
+
+    public static function getNotifier(string $serviceable): string
+    {
+        $data_service = (string) Str::of($serviceable)->before('DataService')->afterLast('\\');
+        return "App\\Custom\\Service\\Notify\\{$data_service}ServiceNotifier";
     }
 }

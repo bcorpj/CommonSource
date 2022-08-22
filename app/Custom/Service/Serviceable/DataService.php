@@ -3,15 +3,15 @@
 namespace App\Custom\Service\Serviceable;
 
 use App\Custom\Service\Intentions\Serviceable;
-use App\Custom\Service\Resources\UserDataResource;
+use App\Custom\Service\Resources\DataResource;
 
-class UserDataService implements Serviceable
+class DataService implements Serviceable
 {
     /**
-     * @return string
+     * @inheritDoc
      */
     public function resource(): string
     {
-        return UserDataResource::class;
+        return DataResource::class;
     }
 }

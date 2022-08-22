@@ -20,9 +20,13 @@ class SendType
         $this->resource = $resource;
     }
 
-    public function sync(): void
+    public function sync(): array
     {
-        response()->json($this->service)->throwResponse();
+        /*
+         * Will send JsonResource to service
+         */
+        return [$this->service, $this->resource];
+//        response()->json($this->service)->throwResponse();
     }
 
 

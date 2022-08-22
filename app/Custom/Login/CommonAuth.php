@@ -6,12 +6,17 @@ use App\Custom\Login\Intention\ICommonAuth;
 use App\Custom\Login\Intention\Save;
 use App\Custom\Login\Intention\TokenProvider;
 use App\Custom\Service\Intentions\Services;
+use App\Custom\Service\Resources\DepartmentDataResource;
+use App\Custom\Service\Serviceable\DataService;
+use App\Custom\Service\Serviceable\DepartmentDataService;
 use App\Custom\Service\Serviceable\UserDataService;
-use App\Custom\Service\Temp;
 use App\Http\Requests\AuthRequest;
+use App\Models\Department;
+use App\Models\Service;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use ReflectionException;
+use Str;
 
 class CommonAuth implements ICommonAuth
 {
@@ -36,15 +41,14 @@ class CommonAuth implements ICommonAuth
         return self::$user = User::where('login', $request->login)->first();
     }
 
-    /**
-     * @throws ReflectionException
-     */
     public static function validate(AuthRequest $request): JsonResponse
     {
         if ( !TokenProvider::attempt($request->password, self::$user->password) )
             return self::invalid();
 
-        Services::notify(UserDataService::class, User::find(5));
+//        Services::notify(UserDataService::class, User::find(5));
+//        Services::notify(DepartmentDataService::class, Department::find(1));
+        Services::notify(DataService::class, Department::find(1));
 
         return response()->json(
             Save::in( self::$user )

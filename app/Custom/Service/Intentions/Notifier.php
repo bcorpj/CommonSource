@@ -3,43 +3,42 @@
 namespace App\Custom\Service\Intentions;
 
 use App\Custom\Service\Type\SendType;
-use Illuminate\Database\Eloquent\Collection;
+use App\Http\Resources\Contract\V0_1\DataResource;
+use Illuminate\Support\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use ReflectionClass;
 use ReflectionException;
+use Str;
 
 abstract class Notifier
 {
     private Collection $services;
+    private Serviceable $serviceable;
+    private bool $dynamic;
+    private $model;
 
-    private string $serviceable;
-
-    private Model $model;
-
-    /**
-     * @throws ReflectionException
-     */
-    public function __construct (string $serviceable, Model $model)
+    public function __construct (string $serviceable, $model, bool $dynamic)
     {
-        $this->serviceable = $serviceable;
+        $this->serviceable = new $serviceable;
         $this->model = $model;
+        $this->dynamic = $dynamic;
         $this->services = $this->list($model);
         $this->send();
     }
 
-    /**
-     * @throws ReflectionException
-     */
     public function send (): void
     {
-//        $se = new ReflectionClass($this->serviceable);
-//        dd($se->getShortName());
+        $res = [];
         foreach ($this->services as $service)
         {
-            (new SendType($service, (new $this->serviceable)->resource($this->model)
+            $resource = $this->dynamic ? Version::getResource($service, $this->serviceable) : $this->serviceable;
+            if (class_exists($resource))
+                $res[] = (new SendType($service, new $resource($this->model)
                           ))->sync();
         }
+        response()->json($res)->throwResponse();
+
     }
 
     /**
