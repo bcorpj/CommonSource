@@ -60,4 +60,9 @@ class Service extends Model
         return $this->belongsToMany(User::class, 'user_services');
     }
 
+    public function user(User $user): BelongsToMany
+    {
+        return $this->belongsToMany(User::class, 'user_services')->where('id', $user->id);
+    }
+
 }

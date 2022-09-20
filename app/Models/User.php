@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Http\Resources\CommonUI\InError\ServiceResource;
 use Exception;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -11,6 +12,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Request;
 
 /**
  * App\Models\User
@@ -135,13 +137,12 @@ class User extends Authenticatable
 
     //
 
-    public static function is_active (User $user): bool
+    public static function isActive (User $user): bool
     {
         try {
             return $user->property()->get()[0]->is_active;
         } catch (Exception $exception) {}
         return false;
     }
-
 
 }

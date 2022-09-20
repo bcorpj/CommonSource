@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Http\Resources\CommonUI\Clean;
+namespace App\Http\Resources\Support\V0_1;
 
-use App\Source\Additional\Relations;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class UserResource extends JsonResource
+class DepartmentServiceResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,12 +15,9 @@ class UserResource extends JsonResource
     public function toArray($request)
     {
         return [
+            'name' => $this->name,
+            'abbreviation' => $this->abbreviation,
             'id' => $this->id,
-            'fullname' => $this->fullname,
-            'login' => $this->login,
-            'ldap' => $this->LDAP,
-            'is_admin' => (bool) $this->admin,
-            'is_active' => (bool) Relations::has($this->property, 'is_active')
         ];
     }
 }

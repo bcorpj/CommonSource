@@ -1,6 +1,8 @@
 <?php
 
-use App\Custom\Login\CommonAuth;
+use App\Http\Controllers\AccessProviderController;
+use App\Http\Middleware\IsAuth;
+use App\Source\Login\CommonAuth;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\PositionController;
@@ -12,6 +14,7 @@ use App\Models\Department;
 use App\Models\Position;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,6 +37,11 @@ use Illuminate\Support\Facades\Route;
  */
 
 Route::post('/login', fn(AuthRequest $request) => CommonAuth::init($request) );
+
+Route::controller(AccessProviderController::class)->middleware([IsAuth::class, 'auth:sanctum'])->group(function () {
+    Route::get('/access/login', 'service');
+    Route::post('/access/agreement', 'add')->withoutMiddleware(IsAuth::class);
+});
 
 Route::controller(UserController::class)->middleware(['auth:sanctum'])->group(function () {
     Route::get('/my', 'info');
@@ -77,5 +85,24 @@ Route::controller(PositionController::class)->middleware(['auth:sanctum'])->grou
         Route::match(['post', 'patch'],'/positions', 'interact');
     });
 });
+
+Route::post('/common/produce', function (Request $request) {
+//    echo \App\Source\Service\Intentions\Service::getActionType(\App\Source\Service\Services\Create\UserServices::class);
+    $body = $request->all();
+
+    return response()->json(['message' => 'Added successfully', 'createdId' => 21, 'errors' => [], 'receivedData' => ''], 201);
+
+});
+
+
+Route::post('/common/notify', function (Request $request) {
+//    echo \App\Source\Service\Intentions\Service::getActionType(\App\Source\Service\Services\Create\UserServices::class);
+    $body = $request->all();
+
+    return response()->json(['message' => 'Updated successfully', 'updatedId' => 11, 'errors' => [], 'receivedData' => ''], 201);
+
+});
+
+
 
 

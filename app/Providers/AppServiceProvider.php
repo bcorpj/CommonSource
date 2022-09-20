@@ -2,7 +2,6 @@
 
 namespace App\Providers;
 
-use App\Custom\Role\UserEditSafe;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider

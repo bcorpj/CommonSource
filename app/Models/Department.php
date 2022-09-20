@@ -39,7 +39,6 @@ class Department extends Model
         'abbreviation'
     ];
 
-
     public function users_properties(): HasMany
     {
         return $this->hasMany(UserProperty::class);
