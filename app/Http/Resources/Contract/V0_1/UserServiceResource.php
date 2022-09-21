@@ -18,9 +18,11 @@ class UserServiceResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'fullname' => $this->fullname,
-            'login' => $this->login,
-            'email' => $this->email,
+            'user' => [
+                'fullname' => $this->fullname,
+                'login' => $this->login,
+                'email' => $this->email,
+            ],
 //            'ldap' => $this->LDAP,
             'position' =>  new PositionResource($this->property->position),
             'services' => ServiceResource::collection($this->services),

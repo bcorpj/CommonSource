@@ -2,8 +2,8 @@
 
 namespace App\Http\Requests;
 
-use App\Custom\Additional\Requires;
 use App\Rules\AdminAccessRule;
+use App\Source\Additional\Requires;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;

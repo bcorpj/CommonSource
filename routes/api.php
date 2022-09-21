@@ -90,7 +90,7 @@ Route::post('/common/produce', function (Request $request) {
 //    echo \App\Source\Service\Intentions\Service::getActionType(\App\Source\Service\Services\Create\UserServices::class);
     $body = $request->all();
 
-    return response()->json(['message' => 'Added successfully', 'createdId' => 21, 'errors' => [], 'receivedData' => ''], 201);
+    return response()->json(['message' => 'Added successfully', 'created_id' => 21, 'errors' => [], 'received_data' => $body, 'resource' => $request->header('Resource')], 201);
 
 });
 
@@ -99,7 +99,7 @@ Route::post('/common/notify', function (Request $request) {
 //    echo \App\Source\Service\Intentions\Service::getActionType(\App\Source\Service\Services\Create\UserServices::class);
     $body = $request->all();
 
-    return response()->json(['message' => 'Updated successfully', 'updatedId' => 11, 'errors' => [], 'receivedData' => ''], 201);
+    return response()->json(['message' => 'Updated successfully', 'updated_id' => 11, 'errors' => [], 'received_data' => $body, 'resource' => $request->header('Resource')], 201);
 
 });
 

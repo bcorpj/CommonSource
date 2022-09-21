@@ -18,12 +18,13 @@ class UserServiceResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'fullname' => $this->fullname,
-            'login' => $this->login,
-            'email' => $this->email,
-//            'ldap' => $this->LDAP,
+            'user' => [
+                'fullname' => $this->fullname,
+                'login' => $this->login,
+                'email' => $this->email,
+            ],
+//            'user_properties' => new UserPropertyServiceResource()
             'position' =>  new PositionResource($this->property->position),
-//            'services' => ServiceResource::collection($this->services),
             'department' => new DepartmentResource ( $this->property->department ),
             'access' => new AccessResource( $this->access ),
             'is_admin' => (bool) $this->admin
