@@ -86,16 +86,16 @@ Route::controller(PositionController::class)->middleware(['auth:sanctum'])->grou
     });
 });
 
-Route::post('/common/produce', function (Request $request) {
+Route::post('/common/notify', function (Request $request) {
 //    echo \App\Source\Service\Intentions\Service::getActionType(\App\Source\Service\Services\Create\UserServices::class);
     $body = $request->all();
 
-    return response()->json(['message' => 'Added successfully', 'created_id' => 21, 'errors' => [], 'received_data' => $body, 'resource' => $request->header('Resource')], 201);
+    return response()->json(['message' => 'Added successfully', 'created_id' => 21, 'errors' => [], 'received_data' => $body, 'resource' => $request->header('Resource'), 'headers' => $request->header()], 201);
 
 });
 
 
-Route::post('/common/notify', function (Request $request) {
+Route::post('/common/produce', function (Request $request) {
 //    echo \App\Source\Service\Intentions\Service::getActionType(\App\Source\Service\Services\Create\UserServices::class);
     $body = $request->all();
 

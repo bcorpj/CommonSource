@@ -41,7 +41,8 @@ class CommonAuth implements ICommonAuth
         if ( !TokenProvider::attempt($request->password, self::$user->password) )
             return self::invalid();
 
-        return response()->json( Service::notify(UserServiceResource::class, User::find(4)) );
+//        dd( Service::produce(\App\Models\Service::all(), User::first()) );
+        return response()->json( Service::notify(UserServiceResource::class, User::find(5)) );
 //        Service::notify(DepartmentServiceResource::class, Department::find(1));
 //        response()->json(Http::get('http://commonsource/api/free')->json())->throwResponse();
 

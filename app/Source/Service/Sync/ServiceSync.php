@@ -12,7 +12,8 @@ class ServiceSync extends Sync
     protected function routes(): array
     {
         return [
-            'create' => '/common/produce'
+            'create' => '/common/produce',
+            'notify' => '/common/notify'
         ];
     }
 }

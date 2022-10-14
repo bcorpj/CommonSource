@@ -26,11 +26,11 @@ abstract class Sync
     public function sync(?string $route): array
     {
         /*
-         * Will send JsonResource to service
+         * It will send JsonResource to service
          */
-        $route = $this->routes() [$route] ?? '/common/notify';
-//        $fullRoute = URL::to('/') . '/api' . $route;
-        $fullRoute = $this->service->url . '/api' . $route;
+        $fullRoute = URL::to('/') . '/api' . '/common/notify';
+//        $fullRoute = $this->getUrl($route);
+//        dd($fullRoute);
         $resourceName = Str::of($this->resource::class)->afterLast('\\');
         $data = Http::withBody($this->resource->toJson(), 'application/json')
             ->withHeaders(['Resource' => (string) $resourceName, 'User-Id' => $this->service->service_for['external_user_id'] ?? null])
@@ -40,6 +40,13 @@ abstract class Sync
         return [$this->service, $data];
     }
 
+    protected function getUrl(?string $route): string
+    {
+        return $this->service->url . '/api' . $this->routes() [$route ?: 'notify'];
+    }
+
     abstract protected function routes (): array;
+
+
 
 }

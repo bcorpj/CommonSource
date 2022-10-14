@@ -21,7 +21,7 @@ class UserServiceResource extends JsonResource
             'user' => [
                 'fullname' => $this->fullname,
                 'login' => $this->login,
-                'email' => $this->email,
+                'email' => $this->email
             ],
 //            'user_properties' => new UserPropertyServiceResource()
             'position' =>  new PositionResource($this->property->position),
