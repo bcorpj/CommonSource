@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Resources\Contract\V0_1;
+namespace App\Http\Resources\Contract\V0_4;
 
 use App\Http\Resources\CommonUI\User\AccessResource;
 use App\Http\Resources\CommonUI\User\DepartmentResource;

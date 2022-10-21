@@ -2,14 +2,14 @@
 
 namespace Database\Seeders;
 
-use App\Custom\FakeFill\AccessCreator;
-use App\Custom\FakeFill\AdminCreator;
-use App\Custom\FakeFill\DepartmentCreator;
-use App\Custom\FakeFill\PositionCreator;
-use App\Custom\FakeFill\ServiceCreator;
-use App\Custom\FakeFill\UserCreator;
-use App\Custom\FakeFill\UserPropertiesCreator;
-use App\Custom\FakeFill\UserServiceCreator;
+use App\Source\FakeFill\AccessCreator;
+use App\Source\FakeFill\AdminCreator;
+use App\Source\FakeFill\DepartmentCreator;
+use App\Source\FakeFill\PositionCreator;
+use App\Source\FakeFill\ServiceCreator;
+use App\Source\FakeFill\UserCreator;
+use App\Source\FakeFill\UserPropertiesCreator;
+use App\Source\FakeFill\UserServiceCreator;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Artisan;
 

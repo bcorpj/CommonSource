@@ -18,7 +18,6 @@ class CreateUserServicesTable extends Migration
             $table->foreignId('user_id');
             $table->boolean('blocked')->default(false);
             $table->foreignId('service_id');
-            $table->bigInteger('external_user_id');
             $table->boolean('updated')->default(false);
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
