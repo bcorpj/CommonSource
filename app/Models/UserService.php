@@ -34,7 +34,6 @@ class UserService extends Model
         'user_id',
         'blocked',
         'service_id',
-        'external_user_id'
     ];
 
     public function service(): BelongsTo

@@ -28,12 +28,10 @@ abstract class Sync
         /*
          * It will send JsonResource to service
          */
-//        $fullRoute = URL::to('/') . '/api' . '/common/notify';
         $fullRoute = $this->getUrl($route);
-//        dd($fullRoute);
         $resourceName = Str::of($this->resource::class)->afterLast('\\');
         $data = Http::withBody($this->resource->toJson(), 'application/json')
-            ->withHeaders(['Resource' => (string) $resourceName, 'User-Id' => $this->service->service_for['external_user_id'] ?? null])
+            ->withHeaders(['Resource' => (string) $resourceName])
             ->post($fullRoute)
             ->json();
 
