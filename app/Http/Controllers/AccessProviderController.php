@@ -12,6 +12,7 @@ use App\Source\Login\Access\AccessProvider;
 use App\Source\Login\Access\PasswordProvider;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\URL;
 use Str;
 
 class AccessProviderController extends Controller
@@ -39,11 +40,14 @@ class AccessProviderController extends Controller
 
         }
 
+        $crossCode = (new UserAssertion($request->user()))->generate();
+
         return response()->json([
             'component' => 'Agreement',
+            'redirect' => URL::to("/access/agreement?service=$requestService&code=$crossCode"),
             'info' => new UserResource($request->user()),
             'service' => new ServiceResource($service),
-            'code' => (new UserAssertion($request->user()))->generate()
+            'code' => $crossCode
         ]);
     }
 

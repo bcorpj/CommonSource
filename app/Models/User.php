@@ -116,7 +116,7 @@ class User extends Authenticatable
 
     public function services(): BelongsToMany
     {
-        return $this->belongsToMany(Service::class, 'user_services')->withPivot(['blocked', 'external_user_id'])->as('service_for');
+        return $this->belongsToMany(Service::class, 'user_services')->withPivot(['blocked'])->as('service_for');
     }
 
     public function department(): BelongsToMany

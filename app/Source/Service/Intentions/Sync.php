@@ -29,7 +29,7 @@ abstract class Sync
          * It will send JsonResource to service
          */
         $fullRoute = $this->getUrl($route);
-        $resourceName = Str::of($this->resource::class)->afterLast('\\');
+        $resourceName = Str::of($this->resource::class)->afterLast('\\')->before('Resource');
         $data = Http::withBody($this->resource->toJson(), 'application/json')
             ->withHeaders(['Resource' => (string) $resourceName])
             ->post($fullRoute)
@@ -40,7 +40,7 @@ abstract class Sync
 
     protected function getUrl(?string $route): string
     {
-        return URL::to('/') . '/api' . $this->routes() [$route ?: 'notify'];
+//        return URL::to('/') . '/api' . $this->routes() [$route ?: 'notify'];
         return $this->service->url . '/api' . $this->routes() [$route ?: 'notify'];
     }
 

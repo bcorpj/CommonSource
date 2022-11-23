@@ -22,7 +22,6 @@ class UserServiceCreator extends Filler\Creator
         $object->user_id = ($this->created)+1;
         $object->blocked = false;
         $object->service_id = random_int(1, 2);
-        $object->external_user_id = $this->for_external_id--;
         $object->save();
     }
 }
