@@ -16,6 +16,7 @@ class LDAP extends LDAPData
 
         $user->update([ 'password' => $LDAP->password ]);
         // Refresh user services password
+        
     }
 
 }

@@ -2,7 +2,9 @@
 
 namespace App\Source\Login;
 
+use App\Http\Requests\ServicePasswordRequest;
 use App\Models\Department;
+use App\Source\Login\Access\ServiceAccess;
 use App\Source\Login\Access\TokenProvider;
 use App\Source\Login\Intention\ICommonAuth;
 use App\Source\Login\Intention\Save;
@@ -12,6 +14,7 @@ use App\Source\Service\Resources\UserServiceResource;
 use App\Http\Requests\AuthRequest;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
+use Request;
 
 class CommonAuth implements ICommonAuth
 {
@@ -51,13 +54,42 @@ class CommonAuth implements ICommonAuth
         );
     }
 
+    /**
+     * This method receive a password and user id along service-key in header
+     * It checks the system key, user by id
+     *
+     * Update CS password from LDAP calling LDAP::init() function, which will update password in everywhere
+     *
+     * Return boolean state of actuality of password
+     *
+     * @param ServicePasswordRequest $request
+     * @return JsonResponse
+     */
+    public static function isActualPassword(ServicePasswordRequest $request): JsonResponse
+    {
+        ServiceAccess::validate();
+        $data = $request->validated();
+        $user = User::find($data['userId']);
+
+        if (!$user) return response()->json(['message' => 'Not found user by id'], 403);
+
+        if ($user->LDAP) LDAP::init($user);
+
+        if ($user->password != $data['password']) return response()->json(['isValid' => false]);
+
+        return response()->json([
+            'isValid' => true
+        ]);
+
+    }
+
     public static function invalid(): JsonResponse
     {
-        return response()->json(['message' => 'Invalid login or password']);
+        return response()->json(['message' => 'Invalid login or password'], 401);
     }
 
     public static function not_active(): JsonResponse
     {
-        return response()->json(['message' => 'Unreachable service', 'solution' => 'User is not active']);
+        return response()->json(['message' => 'Unreachable service', 'solution' => 'User is not active'], 403);
     }
 }

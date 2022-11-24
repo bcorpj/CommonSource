@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AccessProviderController;
 use App\Http\Middleware\IsAuth;
+use App\Http\Requests\ServicePasswordRequest;
 use App\Source\Login\CommonAuth;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\DepartmentController;
@@ -37,6 +38,7 @@ use Illuminate\Http\Request;
  */
 
 Route::post('/login', fn(AuthRequest $request) => CommonAuth::init($request) );
+Route::post('/check', fn(ServicePasswordRequest $request) => CommonAuth::isActualPassword($request));
 
 Route::controller(AccessProviderController::class)->middleware([IsAuth::class, 'auth:sanctum'])->group(function () {
     Route::get('/access/login', 'service');

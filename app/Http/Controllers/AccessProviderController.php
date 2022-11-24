@@ -37,7 +37,6 @@ class AccessProviderController extends Controller
                 'externalToken' => $token,
                 'service' => new ServiceResource($service)
             ]);
-
         }
 
         $crossCode = (new UserAssertion($request->user()))->generate();
