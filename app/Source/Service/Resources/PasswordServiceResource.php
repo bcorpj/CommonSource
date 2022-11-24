@@ -5,7 +5,7 @@ namespace App\Source\Service\Resources;
 use App\Models\User;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class PasswordResource extends JsonResource
+class PasswordServiceResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -13,10 +13,11 @@ class PasswordResource extends JsonResource
      * @param  \Illuminate\Http\Request  $request
      * @return array|\Illuminate\Contracts\Support\Arrayable|\JsonSerializable
      */
-    public function toArray($request) /** @var User $request */
+    public function toArray($request)
     {
         return [
-            'password' => $request->password
+            'id' => $this->id,
+            'password' => $this->password
         ];
     }
 }

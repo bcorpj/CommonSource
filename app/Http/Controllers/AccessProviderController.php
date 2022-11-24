@@ -6,10 +6,12 @@ use App\Http\Requests\AgreementRequest;
 use App\Http\Resources\CommonUI\Clean\UserResource;
 use App\Http\Resources\CommonUI\User\ServiceResource;
 use App\Models\Service;
+use App\Models\UserService;
 use App\Source\Service\Intentions\Service as PostmanService;
 use App\Source\Assertion\UserAssertion;
 use App\Source\Login\Access\AccessProvider;
 use App\Source\Login\Access\PasswordProvider;
+use App\Source\Service\Resources\PasswordServiceResource;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\URL;
@@ -56,7 +58,7 @@ class AccessProviderController extends Controller
         $user = $request->user();
 
         $requestService = Str::ucfirst( $request->get('service') );
-        $service = Service::query()->where('name', $requestService)->get();
+        $service = Service::query()->where('name', $requestService)->get(); /** @var Service $service */
         $validCode = (new UserAssertion($user))->isValid($request->get('code'));
 
         if (!$validCode)
@@ -66,7 +68,12 @@ class AccessProviderController extends Controller
             return response()->json(['message' => 'Can\'t give an access. Invalid password']);
 
         $produceToService = PostmanService::produce($service, $user);
-        return response()->json($produceToService);
+        UserService::create([
+            'user_id' => $user->id,
+            'service_id' => $service->first()->id
+        ]);
+        $setPassword = PostmanService::notify(PasswordServiceResource::class, $user, false);
+        return response()->json($setPassword);
     }
 
     /*

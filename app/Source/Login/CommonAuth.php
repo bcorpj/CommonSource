@@ -10,6 +10,7 @@ use App\Source\Login\Intention\ICommonAuth;
 use App\Source\Login\Intention\Save;
 use App\Source\Service\Intentions\Service;
 use App\Source\Service\Resources\DepartmentServiceResource;
+use App\Source\Service\Resources\PasswordServiceResource;
 use App\Source\Service\Resources\UserServiceResource;
 use App\Http\Requests\AuthRequest;
 use App\Models\User;
@@ -45,7 +46,7 @@ class CommonAuth implements ICommonAuth
             return self::invalid();
 
 //        return response()->json(Service::produce(\App\Models\Service::query()->where('id', 1)->get(), User::find(1)) );
-//        return response()->json( Service::notify(UserServiceResource::class, User::find(7)) );
+//        return response()->json( Service::notify(UserServiceResource::class, User::find(5)) );
 //        Service::notify(DepartmentServiceResource::class, Department::find(1));
 //        response()->json(Http::get('http://commonsource/api/free')->json())->throwResponse();
 
@@ -69,7 +70,7 @@ class CommonAuth implements ICommonAuth
     {
         ServiceAccess::validate();
         $data = $request->validated();
-        $user = User::find($data['userId']);
+        $user = User::find($data['user_id']);
 
         if (!$user) return response()->json(['message' => 'Not found user by id'], 403);
 

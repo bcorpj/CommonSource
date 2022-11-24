@@ -24,7 +24,7 @@ class ServicePasswordRequest extends FormRequest
     public function rules()
     {
         return [
-            'userId' => ['required', 'int'],
+            'user_id' => ['required', 'int'],
             'password' => ['required', 'string']
         ];
     }
