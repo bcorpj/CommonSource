@@ -72,8 +72,8 @@ class AccessProviderController extends Controller
             'user_id' => $user->id,
             'service_id' => $service->first()->id
         ]);
-        $setPassword = PostmanService::notify(PasswordServiceResource::class, $user, false);
-        return response()->json($setPassword);
+        PostmanService::notify(PasswordServiceResource::class, $user, false);
+        return response()->json($produceToService);
     }
 
     /*

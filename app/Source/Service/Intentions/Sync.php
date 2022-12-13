@@ -40,7 +40,7 @@ abstract class Sync
 
     protected function getUrl(?string $route): string
     {
-//        return URL::to('/') . '/api' . $this->routes() [$route ?: 'notify'];
+//        return URL::to('/') . '/api' . $this->routes() [$route ?: 'notify']; // self
         return $this->service->url . '/api' . $this->routes() [$route ?: 'notify'];
     }
 
