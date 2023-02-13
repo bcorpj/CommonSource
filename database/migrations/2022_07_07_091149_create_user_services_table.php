@@ -15,9 +15,9 @@ class CreateUserServicesTable extends Migration
     {
         Schema::create('user_services', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id');
+            $table->foreignId('user_id')->unique();
             $table->boolean('blocked')->default(false);
-            $table->foreignId('service_id');
+            $table->foreignId('service_id')->unique();
             $table->boolean('updated')->default(false);
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

@@ -14,8 +14,10 @@ class ServiceAccess
      */
     public static function check(): bool
     {
-        $appKey = app(Request::class)->header('Service-Key');
-        return (bool) Service::query()->where('key', $appKey)->get()->count();
+        $request = app(Request::class);
+        $appKey = $request->header('Service-Key');
+        $appName = $request->header('Service-Name');
+        return (bool) Service::query()->where('key', $appKey)->where('name', $appName)->get()->count();
     }
 
     /**

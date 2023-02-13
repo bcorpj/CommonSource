@@ -2,10 +2,13 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Http\Request;
 
 /**
  * App\Models\Service
@@ -16,24 +19,24 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property mixed|null $data_model
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @method static \Illuminate\Database\Eloquent\Builder|Service newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Service newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Service query()
- * @method static \Illuminate\Database\Eloquent\Builder|Service whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Service whereDataModel($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Service whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Service whereName($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Service whereUpdatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Service whereUrl($value)
+ * @method static Builder|Service newModelQuery()
+ * @method static Builder|Service newQuery()
+ * @method static Builder|Service query()
+ * @method static Builder|Service whereCreatedAt($value)
+ * @method static Builder|Service whereDataModel($value)
+ * @method static Builder|Service whereId($value)
+ * @method static Builder|Service whereName($value)
+ * @method static Builder|Service whereUpdatedAt($value)
+ * @method static Builder|Service whereUrl($value)
  * @mixin \Eloquent
  * @property float $version
- * @method static \Illuminate\Database\Eloquent\Builder|Service whereVersion($value)
+ * @method static Builder|Service whereVersion($value)
  * @property string $key
- * @method static \Illuminate\Database\Eloquent\Builder|Service whereKey($value)
+ * @method static Builder|Service whereKey($value)
  * @property int|null $production
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\User[] $users
+ * @property-read Collection|\App\Models\User[] $users
  * @property-read int|null $users_count
- * @method static \Illuminate\Database\Eloquent\Builder|Service whereProduction($value)
+ * @method static Builder|Service whereProduction($value)
  */
 class Service extends Model
 {
@@ -63,6 +66,19 @@ class Service extends Model
     public function user(User $user): BelongsToMany
     {
         return $this->belongsToMany(User::class, 'user_services')->where('id', $user->id);
+    }
+
+    public static function findByName(string $name, int $production = 1): Builder|Service|null
+    {
+        return Service::query()->where([
+            ['name', $name],
+            ['production', $production]
+        ])->first();
+    }
+
+    public static function assertKey(string $key, ?self $service): bool
+    {
+        return ($service->key ?? null) == $key;
     }
 
 }

@@ -18,8 +18,8 @@ class AdminCreator extends Creator
     public function create(object $object, Generator $faker)
     {
         $object->user_id = random_int(1, 10);
-        $object->department_access = '[]';
-        $object->access = '[]';
+        $object->department_access = [];
+        $object->access = [];
         $object->save();
     }
 }

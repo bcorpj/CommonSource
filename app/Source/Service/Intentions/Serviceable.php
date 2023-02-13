@@ -21,6 +21,12 @@ abstract class Serviceable
         $this->services = $services ?: $this->list($model);
     }
 
+    /**
+     * Send data to children servers
+     *
+     * Important!: Must realize queue in case false status
+     * @return array
+     */
     public function send (): array
     {
         $res = [];

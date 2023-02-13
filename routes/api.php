@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AccessProviderController;
+use App\Http\Middleware\ChildServiceAuth;
 use App\Http\Middleware\IsAuth;
 use App\Http\Requests\ServicePasswordRequest;
 use App\Source\Login\CommonAuth;
@@ -38,7 +39,7 @@ use Illuminate\Http\Request;
  */
 
 Route::post('/login', fn(AuthRequest $request) => CommonAuth::init($request) );
-Route::post('/check', fn(ServicePasswordRequest $request) => CommonAuth::isActualPassword($request));
+Route::post('/check', fn(ServicePasswordRequest $request) => CommonAuth::isActualPassword($request))->middleware(ChildServiceAuth::class);
 
 Route::controller(AccessProviderController::class)->middleware([IsAuth::class, 'auth:sanctum'])->group(function () {
     Route::get('/access/login', 'service');
@@ -88,22 +89,22 @@ Route::controller(PositionController::class)->middleware(['auth:sanctum'])->grou
     });
 });
 
-Route::post('/common/notify', function (Request $request) {
-//    echo \App\Source\Service\Intentions\Service::getActionType(\App\Source\Service\Services\Create\UserServices::class);
-    $body = $request->all();
-
-    return response()->json(['message' => 'Updated successfully', 'created_id' => 21, 'errors' => [], 'received_data' => $body, 'resource' => $request->header('Resource'), 'headers' => $request->header()], 201);
-
-});
-
-
-Route::post('/common/produce', function (Request $request) {
-//    echo \App\Source\Service\Intentions\Service::getActionType(\App\Source\Service\Services\Create\UserServices::class);
-    $body = $request->all();
-
-    return response()->json(['message' => 'Added successfully', 'updated_id' => 11, 'errors' => [], 'received_data' => $body, 'resource' => $request->header('Resource')], 201);
-
-});
+//Route::post('/common/notify', function (Request $request) {
+////    echo \App\Source\Service\Intentions\Service::getActionType(\App\Source\Service\Services\Create\UserServices::class);
+//    $body = $request->all();
+//
+//    return response()->json(['message' => 'Updated successfully', 'created_id' => 21, 'errors' => [], 'received_data' => $body, 'resource' => $request->header('Resource'), 'headers' => $request->header()], 201);
+//
+//});
+//
+//
+//Route::post('/common/produce', function (Request $request) {
+////    echo \App\Source\Service\Intentions\Service::getActionType(\App\Source\Service\Services\Create\UserServices::class);
+//    $body = $request->all();
+//
+//    return response()->json(['message' => 'Added successfully', 'updated_id' => 11, 'errors' => [], 'received_data' => $body, 'resource' => $request->header('Resource')], 201);
+//
+//});
 
 
 

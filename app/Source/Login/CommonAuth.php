@@ -57,9 +57,12 @@ class CommonAuth implements ICommonAuth
 
     /**
      * This method receive a password and user id along service-key in header
+     * Accept query from children with body [user_id => ..., password => "daaad12..."]
      * It checks the system key, user by id
      *
      * Update CS password from LDAP calling LDAP::init() function, which will update password in everywhere
+     *
+     * Will return true in case if user disable auth by using LDAP. It means that in every site user has own untied from LDAP password
      *
      * Return boolean state of actuality of password
      *
@@ -74,10 +77,14 @@ class CommonAuth implements ICommonAuth
 
         if (!$user) return response()->json(['message' => 'Not found user by id'], 403);
 
-        if ($user->LDAP) LDAP::init($user);
-
-        if ($user->password != $data['password']) return response()->json(['isValid' => false]);
-
+        if ($user->LDAP)
+        {
+            LDAP::init($user);
+            if ($user->password != $data['password']) {
+                Service::notify(PasswordServiceResource::class, $user, false);
+                return response()->json(['isValid' => false], 403);
+            }
+        }
         return response()->json([
             'isValid' => true
         ]);

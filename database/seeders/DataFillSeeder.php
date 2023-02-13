@@ -28,7 +28,7 @@ class DataFillSeeder extends Seeder
         new UserCreator();
         new UserPropertiesCreator();
         new ServiceCreator();
-        new UserServiceCreator();
+//        new UserServiceCreator();
         new AdminCreator();
         new AccessCreator();
     }
