@@ -2,7 +2,6 @@
 
 namespace App\Source\Assertion\Code;
 
-use App\Models\User;
 use App\Source\Login\Access\Tokenable;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;

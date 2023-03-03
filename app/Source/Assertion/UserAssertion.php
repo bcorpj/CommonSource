@@ -8,7 +8,6 @@ use Hash;
 
 class UserAssertion extends Assertable
 {
-
     protected function init(): array
     {
         return [
